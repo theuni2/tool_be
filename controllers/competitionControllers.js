@@ -54,4 +54,4 @@ const getCompetition = async (req, res) => {
 
 // module.exports = { info_save, getCompetition };
 module.exports = { info_save, getCompetition };
-// dsfs
+
