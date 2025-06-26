@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const info_save = require("../controllers/competitionControllers");
+const {info_save,getCompetition} = require("../controllers/competitionControllers");
 
 
 // const {
@@ -12,7 +12,7 @@ const info_save = require("../controllers/competitionControllers");
 // } = require("../controllers/competitionController");
 
 router.post("/", info_save);
-// router.get("/", getCompetitions);
+router.get("/dis", getCompetition);
 // router.get("/:id", getCompetition);
 // router.put("/:id", updateCompetition);
 // router.delete("/:id", deleteCompetition);
