@@ -1,7 +1,15 @@
 const express= require('express');
 const app = express();
-
+const Competition= require('./routers/competition')
+const cors = require('cors');
+// const mongoose = require('mongoose');
 const mongoose=require('mongoose')
+
+
+app.use(cors());
+app.use(express.json());
+
+app.use("/api/competitions", Competition)
 
 
 mongoose.connect('mongodb+srv://infocareerdiscovery:oJuUY6Bw1W8zAvxu@cluster0.zhnrbxm.mongodb.net/',{useNewUrlParser:true, useUnifiedTopology:true})
@@ -11,6 +19,8 @@ mongoose.connect('mongodb+srv://infocareerdiscovery:oJuUY6Bw1W8zAvxu@cluster0.zh
 .catch((err)=>{
     console.error('Error connecting to MongoDB:',err);
 })
+
+
 
 app.listen(3002,()=>{
     console.log('server is running on port 3002');
