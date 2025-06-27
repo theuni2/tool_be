@@ -4,6 +4,7 @@ const Competition= require('./routers/competition')
 const cors = require('cors');
 // const mongoose = require('mongoose');
 const mongoose=require('mongoose')
+const port = process.env.PORT || 3002;
 
 
 app.use(cors());
@@ -22,6 +23,6 @@ mongoose.connect('mongodb+srv://infocareerdiscovery:oJuUY6Bw1W8zAvxu@cluster0.zh
 
 
 
-app.listen(3002,()=>{
+app.listen(port,()=>{
     console.log('server is running on port 3002');
 });
