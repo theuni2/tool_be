@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const {info_save,getCompetition} = require("../controllers/competitionControllers");
+const upload = require('../upload');
+const {info_save,getCompetition,getDetails,searchCompetitions} = require("../controllers/competitionControllers");
 
 
 // const {
@@ -11,10 +12,12 @@ const {info_save,getCompetition} = require("../controllers/competitionController
 //   deleteCompetition
 // } = require("../controllers/competitionController");
 
-router.post("/", info_save);
+router.post("/",upload.single('image'), info_save);
 router.get("/dis", getCompetition);
-// router.get("/:id", getCompetition);
+// router.get("/filter_comp", getCompetition);
 // router.put("/:id", updateCompetition);
+router.get('/search',searchCompetitions);
+router.get('/dis/:id',getDetails);
 // router.delete("/:id", deleteCompetition);
 
 

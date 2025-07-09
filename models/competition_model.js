@@ -35,7 +35,10 @@ const competition_db= new mongoose.Schema({
     },
     location_mode: {
         type: String  // e.g., "Online", "Offline", "Hybrid"
-    }
+    },
+    imageUrl: {
+    type:String
+}
 }, {
     timestamps: true
 });
