@@ -38,6 +38,12 @@ const competition_db = new mongoose.Schema({
   },
   imageUrl: {
     type: String
+  },
+  selectivity:{
+    type:String
+  },
+  timeline:{
+    type:String
   }
 }, {
   timestamps: true

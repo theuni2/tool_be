@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/competitions", Competition)
-app.use("/comp/user",userRouter);
+app.use("/admin/user",userRouter);
 
 
 mongoose.connect(process.env.MONGODB_URI,{useNewUrlParser:true, useUnifiedTopology:true})
