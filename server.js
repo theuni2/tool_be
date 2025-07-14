@@ -1,6 +1,7 @@
 const express= require('express');
 const app = express();
 const Competition= require('./routers/competition')
+const userRouter = require('./routers/userRouter');
 const cors = require('cors');
 // const mongoose = require('mongoose');
 const mongoose=require('mongoose')
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/competitions", Competition)
+app.use("/comp/user",userRouter);
 
 
 mongoose.connect(process.env.MONGODB_URI,{useNewUrlParser:true, useUnifiedTopology:true})

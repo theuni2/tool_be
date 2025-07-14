@@ -100,30 +100,76 @@ return res.status(500).json({error:'server error'})
 }
 
 
-const searchCompetitions = async(req,res)=>{
-  try{
-  const {keyword} =req.query.keyword || "";
-  const regex = new RegExp(keyword, 'i');
-  const result = await competition.find({
-   $or: [
-    { name: regex },
-    { type: regex },
-    { label: regex },
-    { deadline: regex },
-    { timePeriod: regex },
-    { about: regex },
-    { fee: regex },
-    { financial_aid: regex },
-    { application: regex },
-    { location_mode: regex }
-  ]
-  })
-res.status(200).json({ success: true, data: result });
-  }catch(error){
+// const searchCompetitions = async(req,res)=>{
+//   try{
+//   const {keyword} =req.query.keyword || "";
+//   const regex = new RegExp(keyword, 'i');
+//   const result = await competition.find({
+//    $or: [
+//     { name: regex },
+//     { type: regex },
+//     { label: regex },
+//     { deadline: regex },
+//     { timePeriod: regex },
+//     { about: regex },
+//     { fee: regex },
+//     { financial_aid: regex },
+//     { application: regex },
+//     { location_mode: regex }
+//   ]
+//   })
+// res.status(200).json({ success: true, data: result });
+//   }catch(error){
+//     console.error("Error searching competitions:", error);
+//     res.status(500).json({success:false,message:"Error searching competitions",error:error.message});
+//   }
+// }
+
+const searchCompetitions = async (req, res) => {
+  try {
+    const keyword = req.query.keyword || "";
+
+    if (!keyword.trim()) {
+      return res.status(400).json({ success: false, message: "Keyword is required." });
+    }
+
+    // Try full-text search
+    let result = await competition.find(
+      { $text: { $search: keyword } },
+      { score: { $meta: "textScore" } }
+    ).sort({ score: { $meta: "textScore" } });
+
+    // Fallback to regex if no full-text match
+    if (result.length === 0) {
+      const regex = new RegExp(keyword, 'i');
+      result = await competition.find({
+        $or: [
+          { name: regex },
+          { type: regex },
+          { label: regex },
+          { deadline: regex },
+          { timePeriod: regex },
+          { about: regex },
+          { fee: regex },
+          { financial_aid: regex },
+          { application: regex },
+          { location_mode: regex }
+        ]
+      });
+    }
+
+    res.status(200).json({ success: true, data: result });
+
+  } catch (error) {
     console.error("Error searching competitions:", error);
-    res.status(500).json({success:false,message:"Error searching competitions",error:error.message});
+    res.status(500).json({
+      success: false,
+      message: "Error searching competitions",
+      error: error.message
+    });
   }
-}
+};
+
 
 // module.exports = { info_save, getCompetition };
 module.exports = { info_save, getCompetition, filter_comp,getDetails,searchCompetitions};
