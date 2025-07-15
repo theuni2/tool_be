@@ -15,6 +15,9 @@ const info_save = (req, res) => {
     video,
     application,
     location_mode,
+     selectivity,
+      // timeline:"",
+      financial_aid_grade
   } = req.body;
 
   const imageUrl = req.file?.path || '';
@@ -31,7 +34,11 @@ const info_save = (req, res) => {
     video,
     application,
     location_mode,
-    imageUrl
+    imageUrl,
+    financial_aid_grade,
+    selectivity,
+
+
   });
 
   newCompetition.save()

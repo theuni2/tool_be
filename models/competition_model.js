@@ -39,12 +39,13 @@ const competition_db = new mongoose.Schema({
   imageUrl: {
     type: String
   },
+  financial_aid_grade:{
+    type:String
+  },
   selectivity:{
     type:String
   },
-  timeline:{
-    type:String
-  }
+
 }, {
   timestamps: true
 });
@@ -60,7 +61,10 @@ competition_db.index({
   fee: 'text',
   financial_aid: 'text',
   application: 'text',
-  location_mode: 'text'
+  location_mode: 'text',
+  selectivity: 'text',
+  // timeline: 'text',
+  financial_aid_grade: 'text'
 });
 
 module.exports = mongoose.model('competition', competition_db);

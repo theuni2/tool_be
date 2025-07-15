@@ -11,7 +11,10 @@ dotenv.config();
 
 app.use(express.urlencoded({ extended: true })); // for form data
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',  // 👈 your Next.js frontend
+  credentials: true,
+}));
 app.use(express.json());
 
 app.use("/api/competitions", Competition)
